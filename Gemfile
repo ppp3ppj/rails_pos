@@ -41,6 +41,15 @@ gem "figaro"
 
 gem 'devise'
 
+# Very simple Roles library without any authorization
+gem 'rolify'
+
+# Authorization library for Ruby and Ruby on Rails
+gem 'cancancan'
+
+# Interface for managing your data
+gem 'rails_admin', '~> 3.0.0'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
