@@ -14,6 +14,7 @@ Rails.application.routes.draw do
          delete 'sign_out', to: 'sessions#sign_out'
          get 'me', to: 'sessions#me'
        end
+       get 'example', to: 'example#index'
     end
   end
 
