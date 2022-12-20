@@ -40,6 +40,7 @@ gem "jbuilder"
 gem "figaro"
 
 gem 'devise'
+gem 'jwt'
 
 # Very simple Roles library without any authorization
 gem 'rolify'
