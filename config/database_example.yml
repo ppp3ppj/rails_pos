@@ -9,12 +9,12 @@ default: &default
 
 development:
   <<: *default
-  database: rails_sensors_project_development
+  database: rails_pos_development
 
 test:
   <<: *default
-  database: rails_sensors_project_test
+  database: rails_pos_test
 
 production:
   <<: *default
-  database: rails_sensors_project_production
+  database: rails_pos_production
