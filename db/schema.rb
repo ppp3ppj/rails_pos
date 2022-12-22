@@ -10,9 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_20_151526) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_22_163459) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.text "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "foods", force: :cascade do |t|
+    t.text "name"
+    t.float "price"
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_foods_on_category_id"
+  end
+
+  create_table "foods_ingredients", force: :cascade do |t|
+    t.bigint "food_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["food_id"], name: "index_foods_ingredients_on_food_id"
+    t.index ["ingredient_id"], name: "index_foods_ingredients_on_ingredient_id"
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.text "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
@@ -60,4 +90,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_151526) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "foods", "categories"
+  add_foreign_key "foods_ingredients", "foods"
+  add_foreign_key "foods_ingredients", "ingredients"
 end

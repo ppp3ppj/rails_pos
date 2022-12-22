@@ -15,6 +15,7 @@ Rails.application.routes.draw do
          get 'me', to: 'sessions#me'
        end
        get 'example', to: 'example#index'
+       resources :foods
     end
   end
 
