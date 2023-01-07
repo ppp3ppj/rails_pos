@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Food < ApplicationRecord
   belongs_to :category
 
@@ -5,9 +7,9 @@ class Food < ApplicationRecord
   has_many :ingredients, through: :foods_ingredients
 
   def as_detail_json
-    json = self.as_json
-    #json[:ingredients] = self.ingredients
-    json[:ingredients] = self.ingredients.map{ |t| t.as_ingredient_json}
+    json = as_json
+    # json[:ingredients] = self.ingredients
+    json[:ingredients] = ingredients.map(&:as_ingredient_json)
     json
   end
 end

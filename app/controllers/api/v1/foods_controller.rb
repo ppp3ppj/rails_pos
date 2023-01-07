@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Api::V1::FoodsController < Api::AppController
-authorize_resource
-#load_and_authorize_resource
-before_action :set_food, only: %i[destroy update edit show]
-before_action :load_user, only: %i[index]
+  authorize_resource
+  # load_and_authorize_resource
+  before_action :set_food, only: %i[destroy update edit show]
+  before_action :load_user, only: %i[index]
   def index
     @foods = Food.all
     render json: @foods
@@ -25,8 +27,7 @@ before_action :load_user, only: %i[index]
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @food.update(food_params)
@@ -37,9 +38,10 @@ before_action :load_user, only: %i[index]
   end
 
   def destroy
-    if @food.destroy
-      render json: { success: true }
-    end
+    return unless @food.destroy
+
+    render json: { success: true }
+    
   end
 
   def load_user
@@ -60,7 +62,4 @@ before_action :load_user, only: %i[index]
   def set_food
     @food = Food.find_by(id: params[:id])
   end
-
-
-
 end

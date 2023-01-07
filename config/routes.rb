@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
@@ -6,17 +8,17 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  # TODO check unmatched
+  # TODO: check unmatched
   namespace :api do
     namespace :v1 do
-       namespace :user do
-         post 'sign_up', to: 'sessions#sign_up'
-         post 'sign_in', to: 'sessions#sign_in'
-         delete 'sign_out', to: 'sessions#sign_out'
-         get 'me', to: 'sessions#me'
-       end
-       get 'example', to: 'example#index'
-       resources :foods
+      namespace :user do
+        post 'sign_up', to: 'sessions#sign_up'
+        post 'sign_in', to: 'sessions#sign_in'
+        delete 'sign_out', to: 'sessions#sign_out'
+        get 'me', to: 'sessions#me'
+      end
+      get 'example', to: 'example#index'
+      resources :foods
     end
   end
 
