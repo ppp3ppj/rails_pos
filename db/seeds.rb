@@ -6,11 +6,18 @@ categories = Category.all
 ingredients = Ingredient.all
 
 if admin.blank?
-  admin = User.create(email: 'admin@project.com', password: 'password')
+  admin = User.create(email: 'admin@project.com', password: 'password', confirmed_at: Time.now.utc)
+  admin.skip_confirmation!
+  admin.skip_confirmation_notification!
   admin.add_role :admin
 end
 
-admin = User.create(email: 'user@project.com', password: 'password') if user.blank?
+if user.blank?
+  user = User.new(email: 'user@project.com', password: 'password', confirmed_at: Time.now.utc)
+  user.skip_confirmation!
+  user.skip_confirmation_notification!
+  user.save
+end
 
 if categories.empty?
   %w[

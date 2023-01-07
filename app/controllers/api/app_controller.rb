@@ -8,7 +8,7 @@ class Api::AppController < ApplicationController
   rescue_from JWT::ExpiredSignature, with: :handle_401
   rescue_from JWT::DecodeError, with: :handle_401
 
-  before_action :process_token
+  # before_action :process_token
 
   def handle_400(exception)
     render json: { success: false, error: exception.message }, status: :bad_request and return
