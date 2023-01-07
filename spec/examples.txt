@@ -1,3 +1,9 @@
-example_id                 | status | run_time        |
--------------------------- | ------ | --------------- |
-./spec/test_spec.rb[1:1:1] | passed | 0.01763 seconds |
+example_id                                  | status  | run_time        |
+------------------------------------------- | ------- | --------------- |
+./spec/models/category_spec.rb[1:1]         | pending | 0.00001 seconds |
+./spec/models/food_spec.rb[1:1]             | pending | 0.00001 seconds |
+./spec/models/foods_ingredient_spec.rb[1:1] | pending | 0.00001 seconds |
+./spec/models/ingredient_spec.rb[1:1]       | pending | 0.00002 seconds |
+./spec/models/role_spec.rb[1:1]             | pending | 0.00003 seconds |
+./spec/models/user_spec.rb[1:1]             | pending | 0.00001 seconds |
+./spec/test_spec.rb[1:1:1]                  | passed  | 0.01744 seconds |

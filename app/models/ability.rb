@@ -4,12 +4,16 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    return unless user.present?
+    return if user.blank?
+    # return unless user.present?
 
-    admin if user.admin?
-  end
+    # admin if user.admin?
+  # end
 
-  def admin
+  # def admin
+    # can :manage, :all
     can :manage, :all
   end
+    
+
 end

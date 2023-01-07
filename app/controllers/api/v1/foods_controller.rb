@@ -1,5 +1,8 @@
 class Api::V1::FoodsController < Api::AppController
+authorize_resource
+#load_and_authorize_resource
 before_action :set_food, only: %i[destroy update edit show]
+before_action :load_user, only: %i[index]
   def index
     @foods = Food.all
     render json: @foods
@@ -39,6 +42,10 @@ before_action :set_food, only: %i[destroy update edit show]
     end
   end
 
+  def load_user
+    return nill if request.headers['auth-token'].blank?
+  end
+
   private
 
   def food_params
@@ -53,6 +60,7 @@ before_action :set_food, only: %i[destroy update edit show]
   def set_food
     @food = Food.find_by(id: params[:id])
   end
+
 
 
 end
