@@ -1,19 +1,25 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
 
-  before_create :generate_auth_token
+  before_validation :generate_auth_token, on: [:create]
+  after_create :assign_default_role
 
-  def generate_auth_token
-    self.auth_token = SecureRandom.uuid
+  validates :email, presence: true
+
+  def generate_auth_token(force = false)
+    self.auth_token ||= SecureRandom.urlsafe_base64
+    self.auth_token = SecureRandom.urlsafe_base64 if force
   end
 
-  def jwt(exp=15.days.from_now)
-    JWT.encode({auth_token: self.auth_token, exp: exp.to_i },
-    Rails.application.credentials.secret_key_base, "HS256")
+  def jwt(exp = 5.days.from_now)
+    payload = { exp: exp.to_i, auth_token: self.auth_token }
+    JWT.encode payload, Rails.application.credentials.secret_key_base, 'HS256' 
   end
 
   def admin?
@@ -22,14 +28,18 @@ class User < ApplicationRecord
 
   def as_json_with_jwt
     json = {}
-    json[:email] = self.email
-    json[:auth_jwt] = self.jwt
+    json[:email] = email
+    json[:auth_jwt] = jwt
     json
   end
 
   def as_profile_json
     json = {}
-    json[:email] = self.email
+    json[:email] = email
     json
+  end
+
+  def assign_default_role
+    add_role(:default) if roles.blank?
   end
 end

@@ -1,5 +1,13 @@
+# frozen_string_literal: true
+
 class Api::V1::FoodsController < Api::AppController
-before_action :set_food, only: %i[destroy update edit show]
+  # authorize_resource
+  # load_and_authorize_resource
+  before_action :set_current_user_from_jwt, only: %i[index]
+  before_action :set_food, only: %i[destroy update edit show]
+  # before_action :load_user, only: %i[index]
+
+  before_action :authenticate_user!
   def index
     @foods = Food.all
     render json: @foods
@@ -22,8 +30,7 @@ before_action :set_food, only: %i[destroy update edit show]
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @food.update(food_params)
@@ -34,9 +41,16 @@ before_action :set_food, only: %i[destroy update edit show]
   end
 
   def destroy
-    if @food.destroy
-      render json: { success: true }
-    end
+    return unless @food.destroy
+
+    render json: { success: true }
+    
+  end
+
+  def load_user
+    Rails.logger.debug '88888888888888888888888888888888888888888'
+    # p @current_user
+    # return nill if request.headers['auth-token'].blank?
   end
 
   private
@@ -53,6 +67,4 @@ before_action :set_food, only: %i[destroy update edit show]
   def set_food
     @food = Food.find_by(id: params[:id])
   end
-
-
 end
