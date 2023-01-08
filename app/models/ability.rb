@@ -4,8 +4,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    return if user.blank?
-
+    # return if user.blank?
+    user ||= User.new  
     # return unless user.present?
 
     # admin if user.admin?

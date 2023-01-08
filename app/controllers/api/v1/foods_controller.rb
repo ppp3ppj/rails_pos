@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 class Api::V1::FoodsController < Api::AppController
-  authorize_resource
+  # authorize_resource
   # load_and_authorize_resource
+  before_action :set_current_user_from_jwt, only: %i[index]
   before_action :set_food, only: %i[destroy update edit show]
-  before_action :load_user, only: %i[index]
+  # before_action :load_user, only: %i[index]
+
+  before_action :authenticate_user!
   def index
     @foods = Food.all
     render json: @foods
@@ -45,7 +48,9 @@ class Api::V1::FoodsController < Api::AppController
   end
 
   def load_user
-    return nill if request.headers['auth-token'].blank?
+    Rails.logger.debug '88888888888888888888888888888888888888888'
+    # p @current_user
+    # return nill if request.headers['auth-token'].blank?
   end
 
   private
