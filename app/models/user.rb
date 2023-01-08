@@ -8,7 +8,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   before_validation :generate_auth_token, on: [:create]
-  after_create :assign_default_role
+#  after_create :assign_default_role
+
+  # has_one_attached :photo
 
   validates :email, presence: true
 
@@ -39,7 +41,8 @@ class User < ApplicationRecord
     json
   end
 
-  def assign_default_role
-    add_role(:default) if roles.blank?
-  end
+#  def assign_default_role
+    # add_role(:default) if roles.blank?
+#    add_role(:default) if admin?
+#  end
 end

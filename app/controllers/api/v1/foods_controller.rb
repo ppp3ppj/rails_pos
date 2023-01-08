@@ -3,7 +3,7 @@
 class Api::V1::FoodsController < Api::AppController
   # authorize_resource
   # load_and_authorize_resource
-  before_action :set_current_user_from_jwt, only: %i[index]
+  before_action :set_current_user_from_jwt
   before_action :set_food, only: %i[destroy update edit show]
   # before_action :load_user, only: %i[index]
 
@@ -17,14 +17,14 @@ class Api::V1::FoodsController < Api::AppController
     render json: @food.as_detail_json, status: :ok
   end
 
-  def new
-    @food = Food.new
-  end
+  # def new
+  #   @food = Food.new
+  # end
 
   def create
     @food = Food.new(food_params)
     if @food.save
-      render json: @food, status: :ok
+      render json: @food.as_api_json, status: :created
     else
       render json: @food.errors, status: :unprocessable_entity
     end
@@ -60,7 +60,8 @@ class Api::V1::FoodsController < Api::AppController
       :name,
       :price,
       :category_id,
-      ingredient_ids: []
+      :image,
+      ingredient_ids: [],
     )
   end
 

@@ -73,4 +73,9 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
+
+  # upload and image
+  Rails.application.routes.default_url_options = { host: 'localhost', port: 3000 }
+  # install vips or libvips
+  #Rails.application.config.active_storage.variant_processor = :vips 
 end
