@@ -5,7 +5,7 @@ class Ingredient < ApplicationRecord
   has_many :foods, dependent: :destroy
 
   def as_ingredient_json
-    as_json
+    # as_json
     
   end
 end

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       end
       get 'example', to: 'example#index'
       resources :foods
+      resources :ingredients
     end
   end
 

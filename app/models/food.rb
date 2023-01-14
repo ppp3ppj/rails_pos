@@ -6,7 +6,7 @@ class Food < ApplicationRecord
   has_one_attached :image
 
   has_many :foods_ingredients, dependent: :destroy
-  has_many :ingredients, through: :foods_ingredients
+  has_many :ingredients, through: :foods_ingredients, dependent: :destroy 
 
   def as_detail_json
     json = as_json
