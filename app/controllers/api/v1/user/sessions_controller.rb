@@ -18,7 +18,7 @@ class Api::V1::User::SessionsController < Api::V1::User::AppController
     user = User.find_by(email: params[:user][:email])
     if user.confirmed? && user.valid_password?(params[:user][:password])
       render json: { success: true, jwt: user.jwt(5.days.from_now) },
-             status: :created
+             status: :ok
     else
       render json: { success: false }, status: :unauthorized
     end
