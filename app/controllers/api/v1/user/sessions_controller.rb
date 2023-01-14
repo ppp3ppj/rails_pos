@@ -5,7 +5,7 @@ class Api::V1::User::SessionsController < Api::V1::User::AppController
   def sign_up
     user = User.new(user_params)
     user.save!
-    render json: { success: true, confirmation_toekn: user.confirmation_token }, status: :created
+    render json: { success: true, confirmation_token: user.confirmation_token }, status: :created
     # if user.save
     #   render json: { success: true }, status: :created
     # else 
